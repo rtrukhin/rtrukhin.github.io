@@ -1,0 +1,32 @@
+<a href='javascript: document.querySelector("body").innerHTML = &apos;<textarea onkeyup="addText(event);" style="width: 98vw; height: 40vh;"></textarea>
+<span style="color: #8f8f8f">* Press Ctrl+Enter to save note or <input type="button" onclick="localStorage.clear(); onLoadHandler();" value="Clear all"> to clear all notes</span>
+<section></section>
+<script>
+    function addText(e) {
+        if (e && !!e.ctrlKey && e.keyCode === 13) {
+            localStorage.setItem(Date.now(), e.target.value);
+            onLoadHandler();
+        }
+    }
+    function onLoadHandler() {
+        var keys = Object.keys(localStorage).sort(),
+                section = document.querySelector("section"),
+                textArea = document.querySelector("textarea"),
+                link,
+                date;
+        section.innerHTML = textArea.value = "";
+        for (var i in keys) {
+            link = document.createElement("a");
+            link.setAttribute("href", "#");
+            link.setAttribute("data", keys[i]);
+            date = new Date(keys[i] - 0);
+            link.innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+            link.addEventListener("click", function (e) {
+                textArea.value = localStorage.getItem(e.target.getAttribute("data"));
+            });
+            section.appendChild(document.createElement("br"));
+            section.appendChild(link);
+        }
+    }
+    onLoadHandler();
+</script>&apos;' target="_blank">Bronotes</a>
