@@ -1,33 +1,47 @@
 <a href='javascript: document.querySelector("body").innerHTML = &apos;<textarea style="width: 98vw; height: 40vh;"></textarea>
-<input type="button" onclick="addText(); onLoadHandler();" value="Save note"> | <input type="button" onclick="localStorage.clear(); onLoadHandler();" value="Clear all">
+<p><button onclick="localStorage.setItem(ns + Date.now(), textArea.value);renderNotes();">Save note</button> | <button onclick="localStorage.clear(); renderNotes();">Delete all notes</button></p>
 <section></section>
 <script>
-    var textArea = document.querySelector("textarea");
-    function addText(e) {
-        
-            localStorage.setItem(Date.now(), textArea.value);
-            onLoadHandler();
-       
-    }
-    function onLoadHandler() {
+    var textArea = document.querySelector("textarea"),
+        ns = "bro~";
+    
+    function renderNotes() {
         var keys = Object.keys(localStorage).sort(),
-                section = document.querySelector("section"),
-                link,
-                date;
+            section = document.querySelector("section"),
+            link, del, sup, date;
+        
         section.innerHTML = textArea.value = "";
+
         for (var i in keys) {
-            link = document.createElement("a");
-            link.setAttribute("href", "#");
-            link.setAttribute("data", keys[i]);
-            date = new Date(keys[i] - 0);
-            link.innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
-            link.addEventListener("click", function (e) {
-                textArea.value = localStorage.getItem(e.target.getAttribute("data"));
-            });
-            section.appendChild(document.createElement("br"));
-            section.appendChild(link);
+            if (keys[i].indexOf(ns) > -1) {
+                date = new Date(keys[i].split(ns)[1] - 0);
+                link = document.createElement("a");
+                link.setAttribute("href", "#");
+                link.setAttribute("data", keys[i]);
+                link.innerHTML = date.toLocaleDateString() + " - " + date.toLocaleTimeString();
+                link.addEventListener("click", function (e) {
+                    textArea.value = localStorage.getItem(e.target.getAttribute("data"));
+                    return false;
+                });
+                del = document.createElement("a");
+                del.setAttribute("href", "#");
+                del.setAttribute("style", "color: red");
+                del.innerHTML = "[x]";
+                del.addEventListener("click", function (e) {
+                    var linkEl = e.target.parentElement.previousSibling;
+                    localStorage.removeItem(linkEl.getAttribute("data"));
+                    linkEl.parentNode.removeChild(linkEl.nextSibling);
+                    linkEl.parentNode.removeChild(linkEl);
+                    return false;
+                });
+                sup = document.createElement("sup");
+                sup.appendChild(del);
+                section.appendChild(document.createElement("br"));
+                section.appendChild(link);
+                section.appendChild(sup);
+            }
         }
     }
-    onLoadHandler();
-</script>&apos;' target="_blank">Bronotes</a>
+    renderNotes();
+</script>&apos;' target="_self">Bronotes</a>
 <span style="color: #8f8f8f"> <---- Move this link on your bookmark bar</span>
