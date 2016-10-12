@@ -1,25 +1,17 @@
-<!--
-   __ __________                                            _______          __                  __   
-  / / \______   \_______  ______  _  ________ ___________   \      \   _____/  |_  ____   ______ \ \  
- / /   |    |  _/\_  __ \/  _ \ \/ \/ /  ___// __ \_  __ \  /   |   \ /  _ \   __\/ __ \ /  ___/  \ \ 
- \ \   |    |   \ |  | \(  <_> )     /\___ \\  ___/|  | \/ /    |    (  <_> )  | \  ___/ \___ \   / / 
-  \_\  |______  / |__|   \____/ \/\_//____  >\___  >__|    \____|__  /\____/|__|  \___  >____  > /_/  
-              \/                          \/     \/                \/                 \/     \/       
-So, you are interesting in code? Good for you! Ooooookay, I did my best to made it easy to read. Enjoy learning.
-
--->
-<a style="color: green" href='javascript: document.querySelector("body").innerHTML = &apos;<textarea style="width: 98vw; height: 40vh;"></textarea>
+<a href='javascript: document.querySelector("body").innerHTML = &apos;<textarea style="width: 98vw; height: 40vh;"></textarea>
 <p><button onclick="localStorage.setItem(ns + Date.now(), textArea.value);renderNotes();">Save note</button> | <button onclick="localStorage.clear(); renderNotes();">Delete all notes</button></p>
 <section></section>
 <script>
     var textArea = document.querySelector("textarea"),
         ns = "bro~";
     
-    var renderNotes = function () {
+    function renderNotes() {
         var keys = Object.keys(localStorage).sort(),
             section = document.querySelector("section"),
             link, del, sup, date;
+        
         section.innerHTML = textArea.value = "";
+
         for (var i in keys) {
             if (keys[i].indexOf(ns) > -1) {
                 date = new Date(keys[i].split(ns)[1] - 0);
@@ -49,11 +41,7 @@ So, you are interesting in code? Good for you! Ooooookay, I did my best to made 
                 section.appendChild(sup);
             }
         }
-    };
+    }
     renderNotes();
 </script>&apos;' target="_self">Bronotes</a>
-<span style="color: grey"> <<<<<<<< Move this link to your bookmarks bar or just click on it</span>
-<pre style="color: lightgrey">* Bronotes - BroNotes (thanks Barney Stinson) or Browser Notes - 
-a place to keep your fast'n'furious notes during surfing in the web. 
-All your notes will be stored inside your browser (until you reset it to factory settings). 
-Nothing is sent to internet. Just local storage, just hardcore! </pre>
+<span style="color: #8f8f8f"> <<<<<<<< Move this link to your bookmarks bar or just open it</span>
