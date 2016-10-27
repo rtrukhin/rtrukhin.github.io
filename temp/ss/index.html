@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=10;IE=Edge,chrome=1" />
+    <title data-l10n-id="application-title"></title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="locales" content="da, de, en-AU, en-CA, en-GB, en-US, es, fr, fr-CA, it, ja, nl, pl, ru, uk">
+    <meta name="default_locale" content="en-US">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- build:version -->
+    <meta name="dpo-version" content="@VERSION">
+    <!-- endbuild -->
+    <!-- build:build-date -->
+    <meta name="dpo-build-date" content="@DATE">
+    <!-- endbuild -->
+
+    <!-- build:doc-root -->
+    <meta name="dpo-doc-root" content="/content/">
+    <!-- endbuild -->
+    <meta name="dpo-doc-locales" content="en-GB, en-US">
+
+    <!-- build:l10n -->
+    <link rel="resource" type="application/l10n" href="/l10n/default-locales.ini">
+    <link rel="localization" href="/l10n/default/data.{locale}.properties">
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <!-- build:remove -->
+    <script src="/bower_components/requirejs/require.js"></script>
+    <script src="/scripts/modernizr.js"></script>
+    <!-- endbuild -->
+
+    <script src="/scripts/app.js"></script>
+
+    <!-- build:remove -->
+    <script src="/scripts/main.js"></script>
+    <!-- endbuild -->
+
+    <script>
+        function prepareUploadFile() {
+            var btn = document.querySelector('input');
+            btn.addEventListener('change', handleFiles, false);
+            var win = window;
+
+            function handleFiles() {
+                var flow = DPO.app.createProjectFlow();
+                flow.on('project:restored', onProjectRestored);
+                flow.restoreProject(this.files[0]);
+            }
+
+            function openInNewTab(url) {
+                var a = document.createElement("a");
+                a.target = "_blank";
+                a.href = url;
+                a.click();
+            }
+
+            function onProjectRestored(sender, projectData) {
+                var location = projectData.projectLocation,
+                    productId = projectData.product.id,
+                    path = encodeURIComponent(location.relativePath),
+                    storageId = location.storageId,
+                    profile = projectData.product.productProfile === 'Avery Digital Print Service' ? "WePrint" : "YouPrint",
+                    url;
+
+                url = "http://dpo8.ec2.avery.com/dpo8/app/target;ep=USP;name=US_en/product;profile=" + profile + "/design;product=" + productId + "/customize;path=" + path + ";storage=" + storageId + "/view?customize";
+
+                <!--openInNewTab('http://afisha.lviv.ua');-->
+                <!--openInNewTab(url);-->
+                window.open(url);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <input type="file" onclick="prepareUploadFile()" />
+    <a href="http://afisha.lviv.ua" target="_blank">test</a>
+</body>
+
+</html>
