@@ -3,65 +3,9 @@
 
 requirejs.config({
     paths: {
-        jquery: '/bower_components/jquery/dist/jquery',
-        backbone: '/bower_components/backbone/backbone',
-        underscore: '/bower_components/underscore/underscore',
-        Snap: '/bower_components/Snap.svg/dist/snap.svg',
-        opentype: '/bower_components/opentype.js/dist/opentype',
-        mousetrap: '/bower_components/mousetrap/mousetrap',
-        StackTrace: '/bower_components/stacktrace-js/dist/stacktrace-with-promises-and-json-polyfills',
-        uaParser: '/bower_components/ua-parser-js/dist/ua-parser.min',
-        dpo8core: '/scripts/dpo.core',
-        templates: '/scripts/templates',
-        html5sortable: '/bower_components/html5sortable/jquery.sortable',
-        screenFull: '/scripts/screenfull',
-        'select2': '/bower_components/select2/dist/js/select2.full',
-        dragdealer: '/bower_components/skidding--dragdealer/src/dragdealer',
-        'jquery-inputmask': '/bower_components/jquery.inputmask/dist/jquery.inputmask.bundle',
-        'jquery-file-download': '/bower_components/jquery-file-download/src/Scripts/jquery.fileDownload',
-        moment: '/bower_components/moment/min/moment-with-locales.min',
-        draggabilly: '/bower_components/draggabilly/dist/draggabilly.pkgd',
-        'cryptojs.core': '/bower_components/cryptojslib/components/core',
-        'cryptojs.cipher-core': '/bower_components/cryptojslib/components/cipher-core',
-        'cryptojs.aes': '/bower_components/cryptojslib/components/aes',
-        'cryptojs.base64': '/bower_components/cryptojslib/components/enc-base64'
+        dpo8core: 'scripts/dpo.core',
     },
-    wrapShim: true,
-    shim: {
-        'cryptojs.core': {
-            exports: 'CryptoJS'
-        },
-        'cryptojs.cipher-core': {
-            deps: ['cryptojs.core'],
-            exports: 'CryptoJS'
-        },
-        'cryptojs.aes': {
-            deps: ['cryptojs.cipher-core'],
-            exports: 'CryptoJS'
-        },
-        'cryptojs.base64': {
-            deps: ['cryptojs.core'],
-            exports: 'CryptoJS'
-        },
-
-        opentype: {},
-        html5sortable: {
-            deps: ['jquery']
-        },
-        'jquery-file-download': {
-            deps: ['jquery']
-        },
-        StackTrace: {
-            exports: 'StackTrace'
-        },
-        uaParser: {
-            exports: 'uaParser'
-        },
-        dragdealer: {
-            deps: ['jquery']
-        }
-    },
-    baseUrl: '/scripts'
+    baseUrl: 'scripts'
 });
 
 requirejs([
